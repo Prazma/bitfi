@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+    <head>
+        <title>BitFi</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <style>
+            body {
+                background: #f1f1f1;
+                color: #fff;
+                font-family: 'Quicksand', sans-serif;
+            }
+            button {
+                width: 90%;
+                outline: none;
+            }
+            #proport {
+                text-align: center;
+            }
+            span {
+                color: #5d5d5d;
+            }
+            .input {
+                min-height: 30px;
+                font-size: inherit;
+                color: #252525;
+                background-color: rgba(0,0,0,0.125);
+                border: 0;
+                box-shadow: none;
+                padding: 5px 5px 5px;
+                width: 90%;
+                outline: none;
+                border-radius: 6px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" media="all">
+        <link rel="stylesheet" href="css/btn.css">
+        <link rel="stylesheet" href="css/animate.css">
+    </head>
+    <body>
+        <div id="proport">
+            <svg height="64" class="octicon octicon-package fill-fade-white" viewBox="0 0 16 16" version="1.1" width="48" aria-hidden="true"><path fill-rule="evenodd" d="M1 4.27v7.47c0 .45.3.84.75.97l6.5 1.73c.16.05.34.05.5 0l6.5-1.73c.45-.13.75-.52.75-.97V4.27c0-.45-.3-.84-.75-.97l-6.5-1.74a1.4 1.4 0 0 0-.5 0L1.75 3.3c-.45.13-.75.52-.75.97zm7 9.09l-6-1.59V5l6 1.61v6.75zM2 4l2.5-.67L11 5.06l-2.5.67L2 4zm13 7.77l-6 1.59V6.61l2-.55V8.5l2-.53V5.53L15 5v6.77zm-2-7.24L6.5 2.8l2-.53L15 4l-2 .53z"></path></svg><br>
+            <span id="dis">Save Cellurar Data Dramatically</span><br><br>
+            <button id="wizard" class="bttn-gradient bttn-md bttn-primary animated rubberBand" onclick="launch()">Launch BitFi</button>
+            <input id="uriport" style="display: none;" type="url" class="input" placeholder="Type in Site URL"><br><br>
+            <button style="display: none; opacity: 0;" id="adder" class="bttn-gradient bttn-md bttn-primary animated rubberBand" onclick="AddPackage()">Add Site</button>
+            <iframe id="getTAR" style="display: none;"></iframe>
+            <script>
+                var package = [];
+                var endline = 500;
+                var stats = 0;
+                var loaderState = "dormant";
+                var wizard = document.getElementById("wizard");
+                var tar = document.getElementById("getTAR");
+                var adder = document.getElementById("adder");
+                var uri = document.getElementById("uriport");
+                function launch() {
+                    wizard.innerHTML = "Running BitFi";
+                    wizard.disabled = true;
+                    setTimeout( function () {
+                        wizard.style.opacity = "0";
+                    }, 600)
+                    setTimeout( function () {
+                        wizard.style.display = "none";
+                        document.getElementById("dis").innerHTML = "Add sites to save data.";
+                        adder.style.display = "inline";
+                        adder.style.opacity = "1";
+                        uri.style.display = "inline";
+                    }, 1100)
+                }
+                function AddPackage() {
+                    adder.innerHTML = "Adding Site...";
+                    adder.disabled = true;
+                    if( localStorage.packet ) {
+                        var bundler = localStorage.package;
+                        tar.src = uri.value;
+                        setTimeout( function () {
+                            var code = tar.innerHTML;
+                            bundler.push( code );
+                            var codeBundle = bundler.join();
+                            localStorage.package = codeBundle;
+                        }, 3000);
+                    } else {
+                        tar.src = uri.value;
+                        setTimeout( function () {
+                            var code = tar.innerHTML;
+                            package.push( code );
+                            var codeBundle = package.join();
+                            localStorage.package = codeBundle;
+                        }, 3000)
+                    }
+                    setTimeout( function () {
+                        uri.value = "";
+                        adder.innerHTML = "Add Site";
+                        adder.disabled = false;
+                        document.getElementById("dis").innerHTML = "Site Bundler was Added";
+                    }, 4000);
+                }
+            </script>
+        </div>
+        <div style="position: fixed; bottom: 10px; color: #9e9e9e; width: 100%;">
+            <span style="margin-left: 10px;">(c)2015 Tomo Yamamoto</span>
+        </div>
+    </body>
+</html>
